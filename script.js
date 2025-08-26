@@ -6,24 +6,26 @@ async function fetchCharacters(page){
     resultsDiv.innerHTML = "<p>Carregando...</p>"
 
     try {
-        const response = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
+        const response = await fetch(`https://dragonball-api.com/api/characters?page=${page}`)
         const data = await response.json()
-        // console.log(data)
+        console.log(data)
 
         if(data.error){
-            resultsDiv.innerHTML = "<p>Página inválida! Tente outra. (1/42)</p>"
+            resultsDiv.innerHTML = "<p>Página inválida! Tente outra.</p>"
             return
         }
 
          resultsDiv.innerHTML = ""
-         data.results.forEach(character => {
+         data.items.forEach(character => {
             const card = document.createElement("div")
             card.className = "card"
             card.innerHTML = `
                 <img src="${character.image}" alt="${character.name}">
                 <h3>${character.name}</h3>
-                <p><strong>Status:</strong>${character.status}</p>
-                <p><strong>Espécie:</strong>${character.species}</p>
+                <p><strong>Filmes:</strong>${character.race}</p>
+                <p><strong>Vídeo games:</strong>${character.gender}</p>
+                <p><strong>Vídeo games:</strong>${character.ki}</p>
+
             `
             resultsDiv.appendChild(card)
          })

@@ -1,1 +1,1 @@
-# Ricky-e-more
+# sesi07-consumo-api-rickandmorty
