@@ -62,22 +62,24 @@ h1 {
 .card {
     background: #000000c5;
     border-radius: 10px;
-    padding: 10px;
-    width: 200px;
+    padding: 20px;
+    width: 300px;
     text-align: center;
     color: #fff;
     transition: all 200ms ease-in-out;
-    box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+    box-shadow: rgba(89, 1, 243, 0.984) -5px 5px, rgba(249, 3, 3, 0.984) -10px 10px, rgb(243, 3, 223) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
 }
 
 .card img {
+    height: 350px;
     width: 100%;
     border-radius: 100%;
     transition: all 200ms ease-in-out;
+    object-fit: contain;
 }
 
 .card:hover {
-    box-shadow: rgba(88, 240, 46, 0.4) -5px 5px, rgba(62, 240, 46, 0.3) -10px 10px, rgba(78, 240, 46, 0.2) -15px 15px, rgba(78, 240, 46, 0.1) -20px 20px, rgba(82, 240, 46, 0.05) -25px 25px;
+    box-shadow: rgb(22, 79, 250) -5px 5px, rgba(4, 58, 196, 0.884) -10px 10px, rgba(21, 2, 230, 0.932) -15px 15px, rgba(137, 2, 2, 0.94) -20px 20px, rgb(251, 4, 4) -25px 25px;
 }
 
 .card:hover h3 {
