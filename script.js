@@ -1,48 +1,47 @@
-const pageInput = document.getElementById("pageInput")
-const searchBtn = document.getElementById("searchBtn")
-const resultsDiv = document.getElementById("results")
+const resultsDiv = document.getElementById("results");
 
-async function fetchCharacters(page){
-    resultsDiv.innerHTML = "<p>Carregando...</p>"
-
-    try {
-        const response = await fetch(`https://dragonball-api.com/api/characters?page=${page}`)
-        const data = await response.json()
-        console.log(data)
-
-        if(data.error){
-            resultsDiv.innerHTML = "<p>Página inválida! Tente outra.</p>"
-            return
-        }
-
-         resultsDiv.innerHTML = ""
-         data.items.forEach(character => {
-            const card = document.createElement("div")
-            card.className = "card"
-            card.innerHTML = `
-                <img src="${character.image}" alt="${character.name}">
-                <h3>${character.name}</h3>
-                <p><strong>Raça:</strong>${character.race}</p>
-                <p><strong>Gênero:</strong>${character.gender}</p>
-                <p><strong>Ki:</strong>${character.ki}</p>
-                <p><strong>maxKi:</strong>${character.maxKi}</p>
-
-            `
-            resultsDiv.appendChild(card)
-         })
-    } catch (error) {
-        // console.log("deu ruim")
-        resultsDiv.innerHTML = "<p>Erro ao buscar personagens!!!</p>"
-    }
+// Create a simple card with name and image only
+function createCharacterCard(character) {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <img src="${character.image}" alt="${character.name}">
+    <h3>${character.name}</h3>
+  `;
+  return card;
 }
 
-searchBtn.addEventListener("click", () => {
-    const page = pageInput.value.trim()
-    if(page){
-        fetchCharacters(page)
-    }else{
-        resultsDiv.innerHTML = "<p>Digite um número de página</p>"
-    }
-})
+// Fetch all characters
+async function fetchAllCharacters(limit = 200) {
+  const apiUrl = `https://demon-slayer-api.onrender.com/v1/?limit=${limit}`;
+  resultsDiv.innerHTML = "<p>Loading characters...</p>";
 
-fetchCharacters(1)
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+    const characters = await response.json();
+
+    if (!Array.isArray(characters) || characters.length === 0) {
+      resultsDiv.innerHTML = "<p>No characters found.</p>";
+      return;
+    }
+
+    resultsDiv.innerHTML = "";
+    characters.forEach(character => {
+      const card = createCharacterCard(character);
+      resultsDiv.appendChild(card);
+    });
+
+    console.log("All characters:", characters);
+    return characters;
+
+  } catch (error) {
+    console.error("Error fetching characters:", error);
+    resultsDiv.innerHTML = "<p>Error loading characters.</p>";
+    return [];
+  }
+}
+
+// Fetch on page load
+fetchAllCharacters();
